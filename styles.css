@@ -1,0 +1,22 @@
+#name {
+    text-align: center;
+}
+
+#skinimg {
+    display: block;
+    width: 40%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#randomskin {
+    display: none;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid;
+    padding: 10px;
+}
