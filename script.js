@@ -16,8 +16,8 @@ async function logItems() {
 async function main() {
   const items = await logItems();
 
-  // Create an empty array to store the weapons
-  const weapons = [];
+  // Create an empty object to store the weapons
+  const weaponsObject = {};
 
   // Loop through the keys in the `items.items_list` object
   for (const key of Object.keys(items.items_list)) {
@@ -31,16 +31,14 @@ async function main() {
 
       // Check if the value of the `"type"` key is `"Weapon"`
       if (type === "Weapon") {
-        // Add the weapon to the `weapons` array
-        weapons.push(item);
+        // Add the weapon to the `weaponsObject` object, using its name as the key
+        weaponsObject[item.name] = item;
       }
     }
   }
 
-  // Print the names of all the weapons
-  for (const weapon of weapons) {
-    console.log(`Found a weapon: ${weapon.name}`);
-  }
+  // Print out a random weapon
+  console.log(Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]);
 }
 
 main()
