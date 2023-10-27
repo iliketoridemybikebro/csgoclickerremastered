@@ -54,8 +54,9 @@ async function main() {
 
   // Print out a random weapon
   randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
+  console.log(randomWeapon)
   document.getElementById("randomskin").style.borderColor = `#${randomWeapon.rarity_color}`;
-  document.getElementById("skinimg").src = `https:/you-livid.vercel.app/proxy/https:/community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
+  document.getElementById("skinimg").src = `https://you-livid.vercel.app/proxy/https:/community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
 }
 
 main()

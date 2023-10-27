@@ -1,17 +1,21 @@
 #name {
     text-align: center;
+    overflow: hidden;
 }
 
 #skinimg {
     display: block;
-    width: 40%;
-    height: auto;
+    width: 70%;
+    height: 70%;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 
 #randomskin {
     display: none;
+    width: 600px;
+    height: 400px;
 }
 
 .center {
