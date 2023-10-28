@@ -38,16 +38,16 @@ async function main() {
     }
   }
 
-  const randomskin = document.getElementById('randomskin');
+  const randomskindiv = document.getElementById('randomskindiv');
   const skinimg = document.getElementById('skinimg');
 
   // Hide the div initially
-  randomskin.style.display = 'none';
+  randomskindiv.style.display = 'none';
 
   // Listen for the image to load
   skinimg.onload = function() {
     // Once the image has loaded, show the div
-    randomskin.style.display = 'block';
+    randomskindiv.style.display = 'block';
     document.getElementById("name").innerHTML = randomWeapon.name
     document.getElementById("name").style.color = `#${randomWeapon.rarity_color}`;
   };
@@ -55,7 +55,7 @@ async function main() {
   // Print out a random weapon
   randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
   console.log(randomWeapon)
-  document.getElementById("randomskin").style.borderColor = `#${randomWeapon.rarity_color}`;
+  document.getElementById("randomskindiv").style.borderColor = `#${randomWeapon.rarity_color}`;
   document.getElementById("skinimg").src = `https://you-livid.vercel.app/proxy/https:/community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
 }
 

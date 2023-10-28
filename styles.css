@@ -5,16 +5,18 @@
 
 #skinimg {
     display: block;
-    width: 70%;
-    height: 70%;
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
+    object-fit: contain;
+    width: 80%;
+    height: 80%;
+    transform: translateY(-10%);
 }
 
-#randomskin {
+#randomskindiv {
     display: none;
-    width: 600px;
+    width: 400px;
     height: 400px;
 }
 
