@@ -1,6 +1,7 @@
 let response
 let itemsJson
 let randomWeapon
+let weaponsObject = {}
 
 async function logItems() {
   response = await fetch('https://goofy-three.vercel.app/proxy/http:/csgobackpack.net/api/GetItemsList/v2/', {
@@ -12,6 +13,34 @@ async function logItems() {
   
   const json = await response.json()
   return json
+}
+
+function openCase(weaponsObject) {
+  const randomskindiv = document.getElementById('randomskindiv');
+  const skinimg = document.getElementById('skinimg');
+
+  // Hide the div initially
+  randomskindiv.style.display = 'block';
+
+  // Listen for the image to load
+  skinimg.onload = function() {
+    // Once the image has loaded, show the div
+    randomskindiv.style.display = 'block';
+    document.getElementById("name").innerHTML = randomWeapon.name
+    document.getElementById("name").style.color = `#${randomWeapon.rarity_color}`;
+    document.getElementById("randomskindiv").style.borderColor = `#${randomWeapon.rarity_color}`;
+
+    if (randomWeapon.price.hasOwnProperty("7_days") && randomWeapon.price["7_days"].average != 0) {
+      document.getElementById("price").innerHTML = randomWeapon.price["7_days"].average + "$"
+    } else {
+      document.getElementById("price").innerHTML = randomWeapon.price["30_days"].average + "$"
+    }
+  };
+  
+  // Print out a random weapon
+  randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
+  console.log(randomWeapon)
+  document.getElementById("skinimg").src = `https://community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
 }
 
 async function main() {
@@ -30,33 +59,19 @@ async function main() {
       // Get the value of the `"type"` key
       const type = item.type;
 
-      // Check if the value of the `"type"` key is `"Weapon"`
-      if (type === "Weapon") {
+      // Check if the value of the `"type"` key is `"Weapon"` and also make sure its not a deagle skin that doesnt exist
+      if (type === "Weapon" && item.icon_url !== "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQh5hlcX0nvUOGsx8DdQBJjIAVHubSaLwJh1P_NP28b6YSwxITck6f2Nu7UwTgG7JF33L-S8Imtigft_xFpMGCmJIbHJlIgIQaH3GjvkKk") {
         // Add the weapon to the `weaponsObject` object, using its name as the key
         weaponsObject[item.name] = item;
       }
     }
   }
 
-  const randomskindiv = document.getElementById('randomskindiv');
-  const skinimg = document.getElementById('skinimg');
-
-  // Hide the div initially
-  randomskindiv.style.display = 'none';
-
-  // Listen for the image to load
-  skinimg.onload = function() {
-    // Once the image has loaded, show the div
-    randomskindiv.style.display = 'block';
-    document.getElementById("name").innerHTML = randomWeapon.name
-    document.getElementById("name").style.color = `#${randomWeapon.rarity_color}`;
-  };
-
-  // Print out a random weapon
-  randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
-  console.log(randomWeapon)
-  document.getElementById("randomskindiv").style.borderColor = `#${randomWeapon.rarity_color}`;
-  document.getElementById("skinimg").src = `https://you-livid.vercel.app/proxy/https:/community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
+  // Add an event listener for the `click` event on the `openCaseButton` element
+  document.getElementById("openCaseButton").addEventListener("click", function() {
+    // Open a random case
+    openCase(weaponsObject);
+  });
 }
 
 main()
