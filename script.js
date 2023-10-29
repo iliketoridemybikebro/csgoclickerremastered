@@ -40,7 +40,7 @@ function openCase(weaponsObject) {
   // Print out a random weapon
   randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
   console.log(randomWeapon)
-  document.getElementById("skinimg").src = `https://community.akamai.steamstatic.com/economy/image/${randomWeapon.icon_url}`
+  document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
 }
 
 async function main() {
