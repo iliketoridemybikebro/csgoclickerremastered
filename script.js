@@ -32,8 +32,12 @@ function openCase(weaponsObject) {
 
     if (randomWeapon.price.hasOwnProperty("7_days") && randomWeapon.price["7_days"].average != 0) {
       document.getElementById("price").innerHTML = randomWeapon.price["7_days"].average + "$"
-    } else {
+    } else if (randomWeapon.price.hasOwnProperty("30_days") && randomWeapon.price["30_days"].average != 0) {
       document.getElementById("price").innerHTML = randomWeapon.price["30_days"].average + "$"
+    } else if (randomWeapon.price.hasOwnProperty("all_time") && randomWeapon.price["all_time"].average != 0) {
+      document.getElementById("price").innerHTML = randomWeapon.price["all_time"].average + "$"
+    } else {
+      document.getElementById("price").innerHTML = "No price to display"
     }
   };
   
@@ -60,7 +64,7 @@ async function main() {
       const type = item.type;
 
       // Check if the value of the `"type"` key is `"Weapon"` and also make sure its not a deagle skin that doesnt exist
-      if (type === "Weapon" && item.icon_url !== "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQh5hlcX0nvUOGsx8DdQBJjIAVHubSaLwJh1P_NP28b6YSwxITck6f2Nu7UwTgG7JF33L-S8Imtigft_xFpMGCmJIbHJlIgIQaH3GjvkKk") {
+      if (type === "Weapon" && item.tradable === 1 && item.icon_url !== "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQh5hlcX0nvUOGsx8DdQBJjIAVHubSaLwJh1P_NP28b6YSwxITck6f2Nu7UwTgG7JF33L-S8Imtigft_xFpMGCmJIbHJlIgIQaH3GjvkKk") {
         // Add the weapon to the `weaponsObject` object, using its name as the key
         weaponsObject[item.name] = item;
       }
@@ -70,6 +74,7 @@ async function main() {
   // Add an event listener for the `click` event on the `openCaseButton` element
   document.getElementById("openCaseButton").addEventListener("click", function() {
     // Open a random case
+    console.log("button pressed")
     openCase(weaponsObject);
   });
 }
