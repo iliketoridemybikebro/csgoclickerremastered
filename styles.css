@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(50, 50, 50);
+}
+
 #name {
     text-align: center;
     overflow: hidden;
@@ -26,6 +30,9 @@
     display: none;
     width: 400px;
     height: 400px;
+    background-image: url("blurrybackground.jfif");
+    background-repeat: no-repeat;
+    background-size: 180%;  
 }
 
 .center {
@@ -38,7 +45,7 @@
 #buttonDiv {
     margin: auto;
     width: 50%;
-    padding: 10px;
+    padding: 40px;
 }
 
 #openCaseButton {
@@ -48,4 +55,8 @@
     height: 40px;
     border: 3px solid black;
     cursor: pointer;
+}
+
+#price {
+    
 }

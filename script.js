@@ -2,6 +2,13 @@ let response
 let itemsJson
 let randomWeapon
 let weaponsObject = {}
+let useRarity
+
+let milspec = {}
+let restricted = {}
+let classified = {}
+let covert = {}
+let extraordinary = {}
 
 async function logItems() {
   response = await fetch('https://goofy-three.vercel.app/proxy/http:/csgobackpack.net/api/GetItemsList/v2/', {
@@ -42,11 +49,46 @@ function openCase(weaponsObject) {
       document.getElementById("price").innerHTML = "No price to display"
     }
   };
+
+  const rarityString = getRandom()
+  
+  switch (rarityString) {
+    case "extraordinary":
+      useRarity = extraordinary
+    case "covert":
+      useRarity = covert
+      break
+    case "classified":
+      useRarity = classified
+      break
+    case "restricted":
+      useRarity = restricted
+      break
+    case "milspec":
+      useRarity = milspec
+      break
+  }
   
   // Print out a random weapon
-  randomWeapon = Object.values(weaponsObject)[Math.floor(Math.random() * Object.values(weaponsObject).length)]
+  randomWeapon = Object.values(useRarity)[Math.floor(Math.random() * Object.values(useRarity).length)]
   console.log(randomWeapon)
   document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
+}
+
+function getRandom() {
+  const num = Math.random()
+  console.log(num)
+  if (num < 0.0026) {
+    return "extraordinary"
+  } else if (num < 0.0064) {
+    return "covert"
+  } else if (num < 0.032) {
+    return "classified"
+  } else if (num < 0.1598) {
+    return "restricted"
+  } else {
+    return "milspec"
+  }
 }
 
 async function main() {
@@ -73,19 +115,25 @@ async function main() {
 
         switch (item.rarity) {
           case "Mil-Spec Grade":
-            //weaponsObject[item.name] = item;
+            milspec[item.name] = item;
             break
           case "Restricted":
-            //weaponsObject[item.name] = item;
+            restricted[item.name] = item;
             break
           case "Classified":
-            //weaponsObject[item.name] = item;
+            classified[item.name] = item;
             break
           case "Covert":
-            //weaponsObject[item.name] = item;
+            if (item.weapon_type === "Knife") {
+              extraordinary[item.name] = item;
+              item.rarity_color = "e4ae39"
+            } else {
+              covert[item.name] = item;
+            }
             break
-          case "Consumer Grade":  
-            //weaponsObject[item.name] = item;
+          case "Extraordinary":  
+            extraordinary[item.name] = item;
+            item.rarity_color = "e4ae39"
             break
         }
       }
