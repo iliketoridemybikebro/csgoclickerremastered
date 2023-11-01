@@ -55,7 +55,8 @@ function openCase(weaponsObject) {
   switch (rarityString) {
     case "extraordinary":
       useRarity = extraordinary
-    case "covert":
+      break
+    case "covert":  
       useRarity = covert
       break
     case "classified":
@@ -146,6 +147,16 @@ async function main() {
     console.log("button pressed")
     openCase(weaponsObject);
   });
+
+  // let counter = 0
+  // let i = setInterval(function(){
+  //   openCase()
+  //   counter++;
+  //   if (counter === 1000) {
+  //       clearInterval(i);
+  //   }
+  // }, 50);
+
 }
 
 main()
