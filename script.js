@@ -3,6 +3,8 @@ let itemsJson
 let randomWeapon
 let weaponsObject = {}
 let useRarity
+let stattrakList = {}
+let nonStattrakList = {}
 
 let milspec = {}
 let restricted = {}
@@ -69,11 +71,27 @@ function openCase(weaponsObject) {
       useRarity = milspec
       break
   }
-  
-  // Print out a random weapon
-  randomWeapon = Object.values(useRarity)[Math.floor(Math.random() * Object.values(useRarity).length)]
+
+  for (const key of Object.keys(useRarity)) {
+    const item = useRarity[key];
+    if (item.hasOwnProperty("stattrak")) {
+      stattrakList[item.name] = item
+    } else if (!item.hasOwnProperty("stattrak")) {
+      nonStattrakList[item.name] = item
+    }
+  }
+
+  const statnum = Math.random()
+
+  if (statnum < 0.5) {
+    randomWeapon = Object.values(stattrakList)[Math.floor(Math.random() * Object.values(stattrakList).length)]
+  } else {
+    randomWeapon = Object.values(nonStattrakList)[Math.floor(Math.random() * Object.values(nonStattrakList).length)]
+  }
+
   console.log(randomWeapon)
-  document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
+  //document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
+  document.getElementById("skinimg").src = "/puppy.png"
 }
 
 function getRandom() {
@@ -102,7 +120,7 @@ async function main() {
   for (const key of Object.keys(items.items_list)) {
     // Get the value of the current key
     const item = items.items_list[key];
-
+    
     // Check if the `item` object has a key called `"type"`
     if (item.hasOwnProperty("type")) {
       // Get the value of the `"type"` key
