@@ -72,6 +72,9 @@ function openCase(weaponsObject) {
       break
   }
 
+  stattrakList = {}
+  nonStattrakList = {}
+
   for (const key of Object.keys(useRarity)) {
     const item = useRarity[key];
     if (item.hasOwnProperty("stattrak")) {
@@ -83,7 +86,7 @@ function openCase(weaponsObject) {
 
   const statnum = Math.random()
 
-  if (statnum < 0.5) {
+  if (statnum < 0.1) {
     randomWeapon = Object.values(stattrakList)[Math.floor(Math.random() * Object.values(stattrakList).length)]
   } else {
     randomWeapon = Object.values(nonStattrakList)[Math.floor(Math.random() * Object.values(nonStattrakList).length)]
@@ -91,7 +94,7 @@ function openCase(weaponsObject) {
 
   console.log(randomWeapon)
   //document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
-  document.getElementById("skinimg").src = "/puppy.png"
+  document.getElementById("skinimg").src = "puppy.jpg"
 }
 
 function getRandom() {
