@@ -5,6 +5,8 @@ let weaponsObject = {}
 let useRarity
 let stattrakList = {}
 let nonStattrakList = {}
+let safeskins = false
+
 
 let milspec = {}
 let restricted = {}
@@ -24,7 +26,7 @@ async function logItems() {
   return json
 }
 
-function openCase(weaponsObject) {
+function openCase(weaponsObject, safeskins) {
   const randomskindiv = document.getElementById('randomskindiv');
   const skinimg = document.getElementById('skinimg');
 
@@ -93,8 +95,13 @@ function openCase(weaponsObject) {
   }
 
   console.log(randomWeapon)
-  //document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
-  document.getElementById("skinimg").src = "puppy.jpg"
+
+  if (safeskins) {
+    document.getElementById("skinimg").src = "puppy.jpg"
+  } else {
+    document.getElementById("skinimg").src = `https://steamcommunity-a.akamaihd.net/economy/image/${randomWeapon.icon_url}`
+  }
+  
 }
 
 function getRandom() {
@@ -162,13 +169,6 @@ async function main() {
     }
   }
 
-  // Add an event listener for the `click` event on the `openCaseButton` element
-  document.getElementById("openCaseButton").addEventListener("click", function() {
-    // Open a random case
-    console.log("button pressed")
-    openCase(weaponsObject);
-  });
-
   // let counter = 0
   // let i = setInterval(function(){
   //   openCase()
@@ -177,6 +177,42 @@ async function main() {
   //       clearInterval(i);
   //   }
   // }, 50);
+
+
+  const settingsButton = document.getElementById('settings-button');
+  const settingsPanel = document.getElementById('settings-panel');
+
+  settingsButton.addEventListener('click', () => {
+    if (settingsPanel.style.display === 'block') {
+      //settingsPanel.style.display = 'none';
+      settingsPanel.classList.toggle('on')
+    } else {
+      settingsPanel.style.display = 'block';
+      settingsPanel.classList.toggle('on')
+    }
+  });
+
+  const toggleButton = document.getElementById('toggle-button');
+  let isToggled = false;
+
+  toggleButton.addEventListener('click', () => {
+    isToggled = !isToggled;
+
+    if (isToggled) {
+      safeskins = true
+    } else {
+      safeskins = false
+    }
+  });
+  
+
+  // Add an event listener for the `click` event on the `openCaseButton` element
+  document.getElementById("openCaseButton").addEventListener("click", function() {
+    // Open a random case
+    console.log("button pressed")
+    openCase(weaponsObject, safeskins);
+  });
+
 
 }
 
