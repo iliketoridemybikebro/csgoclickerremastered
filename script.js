@@ -121,7 +121,21 @@ function getRandom() {
 }
 
 async function main() {
+  // handle loading logic and hiding elements
+
+  const loading = await document.getElementById('loading');
+
+  console.log('loading')
+  loading.style.display = 'block'
+  document.getElementById("openCaseButton").style.display = 'none'
+  document.getElementById('settings-button').style.display = 'none'
+
   const items = await logItems();
+
+  console.log('done!')
+  loading.style.display = 'none'
+  document.getElementById("openCaseButton").style.display = 'block'
+  document.getElementById('settings-button').style.display = 'block'
 
   // Create an empty object to store the weapons
   const weaponsObject = {};

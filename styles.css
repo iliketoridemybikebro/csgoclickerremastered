@@ -131,3 +131,25 @@ body {
     opacity: 1;
     transition: opacity 0.5s;
 }
+
+#loading {
+    margin: auto;
+    width: 40%;
+    transform: translateY(-30px);
+}
+
+#loadingtext {
+    text-align: center;
+    color: black;
+}
+
+#loadinggif {
+    margin-top: -15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    width: 10%;
+    height: 10%;
+    visibility: visible;
+}
